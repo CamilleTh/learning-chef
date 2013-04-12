@@ -5,7 +5,7 @@ Vagrant::Config.run do |config|
 
 
   config.vm.provision :chef_client do |chef|
-   chef.chef_server_url = "https://192.168.4.128"
+   chef.chef_server_url = "https://192.168.4.128:4000"
    chef.validation_client_name = "chef-validator"
    chef.validation_key_path = "./.chef/chef-validator.pem"
    chef.node_name = "vagrantVM"
