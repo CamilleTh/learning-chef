@@ -135,12 +135,7 @@ class Chef
 
       def deploy_provider
         @deploy_provider ||= begin
-          version = Chef::Version.new(Chef::VERSION)
-          deploy_provider = if version.major > 10 || version.minor >= 14
-            Chef::Platform.provider_for_resource(@deploy_resource, :nothing)
-          else
-            Chef::Platform.provider_for_resource(@deploy_resource)
-          end
+          deploy_provider = Chef::Platform.provider_for_resource(@deploy_resource)
           deploy_provider.load_current_resource
           deploy_provider
         end
@@ -160,7 +155,7 @@ class Chef
         case callback_code
         when Proc
           Chef::Log.info "#{@new_resource} running callback #{what}"
-          safe_recipe_eval(&callback_code)
+          recipe_eval(&callback_code)
         when String
           callback_file = "#{release_path}/#{callback_code}"
           unless ::File.exist?(callback_file)
@@ -178,15 +173,11 @@ class Chef
         if ::File.exist?(callback_file)
           Dir.chdir(release_path) do
             Chef::Log.info "#{@new_resource} running deploy hook #{callback_file}"
-            safe_recipe_eval { from_file(callback_file) }
+            recipe_eval { from_file(callback_file) }
           end
         end
       end
 
-      def safe_recipe_eval(&callback_code)
-        recipe_eval(&callback_code)
-        converge if respond_to?(:converge)
-      end
     end
   end
 end
