@@ -1,4 +1,4 @@
-log_level                :debug
+log_level                :info
 log_location             STDOUT
 node_name                'camille'
 client_key               '/home/camille/chef-repo/.chef/camille.pem'
