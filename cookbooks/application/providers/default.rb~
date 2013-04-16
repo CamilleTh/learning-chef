@@ -72,10 +72,6 @@ def before_deploy
     end
   end
 
-  print new_resource.path
-  print new_resource.owner
-  print new_resource.group
-
   directory new_resource.path do
     owner new_resource.owner
     group new_resource.group
