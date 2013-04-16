@@ -1,6 +1,7 @@
 Vagrant::Config.run do |config|
 
-  config.vbguest.auto_update = false
+  config.vm.network :bridged, :bridge => "eth0"
+  config.vbguest.auto_update = true
 
   # do NOT download the iso file from a webserver
   config.vbguest.no_remote = true
