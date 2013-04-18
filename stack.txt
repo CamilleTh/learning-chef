@@ -1,0 +1,68 @@
+[vagrant] Updating host entry for default VM. Administrator privileges will be required...
+[default] Running provisioner: Vagrant::Provisioners::ChefClient...
+[default] Creating folder to hold client key...
+[default] Uploading chef client validation key...
+[default] Generating chef JSON and uploading...
+[default] Running chef-client...
+stdin: is not a tty
+[2013-04-16T13:55:20+00:00] INFO: *** Chef 10.18.2 ***
+[2013-04-16T13:55:21+00:00] INFO: [inet6] no default interface, picking the first ipaddress
+[2013-04-16T13:55:21+00:00] INFO: ipaddress and ip6address are set from different interfaces (eth0 & eth1), macaddress has been set using the ipaddress interface
+[2013-04-16T13:55:21+00:00] INFO: Run List is [recipe[apt], recipe[omnibus_updater]]
+[2013-04-16T13:55:21+00:00] INFO: Run List expands to [apt, omnibus_updater]
+[2013-04-16T13:55:21+00:00] INFO: Starting Chef Run for vagrantVM
+[2013-04-16T13:55:21+00:00] INFO: Running start handlers
+[2013-04-16T13:55:21+00:00] INFO: Start handlers complete.
+[2013-04-16T13:55:21+00:00] INFO: Loading cookbooks [apt, omnibus_updater]
+
+================================================================================
+
+Recipe Compile Error in /srv/chef/file_store/cookbooks/omnibus_updater/recipes/default.rb
+
+================================================================================
+
+
+TypeError
+
+---------
+
+can't convert nil into String
+
+
+Cookbook Trace:
+
+---------------
+
+  /srv/chef/file_store/cookbooks/omnibus_updater/recipes/set_remote_path.rb:121:in `join'
+  /srv/chef/file_store/cookbooks/omnibus_updater/recipes/set_remote_path.rb:121:in `from_file'
+  /srv/chef/file_store/cookbooks/omnibus_updater/recipes/deb_package.rb:1:in `from_file'
+  /srv/chef/file_store/cookbooks/omnibus_updater/recipes/default.rb:17:in `from_file'
+
+
+Relevant File Content:
+----------------------
+/srv/chef/file_store/cookbooks/omnibus_updater/recipes/set_remote_path.rb:
+
+114:  else
+115:    raise 'Unsupported install via provided'
+116:  end
+117:  
+118:  remote_omnibus_file = if(path_name)
+119:      File.join(node[:omnibus_updater][:base_uri], path_name)
+120:    else
+121>>     File.join(
+122:        node[:omnibus_updater][:base_uri],
+123:        platform_name,
+124:        platform_majorversion,
+125:        kernel_name,
+126:        file_name
+127:      )
+128:    end
+129:  
+130:  unless(remote_omnibus_file == node[:omnibus_updater][:full_uri])
+
+[2013-04-16T13:55:26+00:00] ERROR: Running exception handlers
+[2013-04-16T13:55:26+00:00] FATAL: Saving node information to /srv/chef/file_store/failed-run-data.json
+[2013-04-16T13:55:26+00:00] ERROR: Exception handlers complete
+[2013-04-16T13:55:26+00:00] FATAL: Stacktrace dumped to /srv/chef/file_store/chef-stacktrace.out
+[2013-04-16T13:55:26+00:00] FATAL: TypeError: can't convert nil into String
