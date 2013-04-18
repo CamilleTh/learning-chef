@@ -1,4 +1,3 @@
-name             'rails-demo'
 maintainer       'intech'
 maintainer_email 'thomassin.camille@gmail.com'
 license          'All rights reserved'
