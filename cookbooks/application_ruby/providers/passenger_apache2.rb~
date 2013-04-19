@@ -35,7 +35,6 @@ action :before_compile do
   end
 
  new_resource.restart_command "mkdir -p #{new_resource.application.path}/current/tmp && touch #{new_resource.application.path}/current/tmp/restart.txt" unless new_resource.restart_command
- unless new_resource.restart_command
 end
 
 action :before_deploy do
