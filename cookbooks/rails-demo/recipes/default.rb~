@@ -13,6 +13,7 @@ application "rails-demo" do
   owner "vagrant"
   group "vagrant"
   repository "http://github.com/mulderp/chef-demo.git"
+  gem_package "bundler"
   rails do 
     bundler true
   end
