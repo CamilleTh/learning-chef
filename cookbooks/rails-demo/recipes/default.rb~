@@ -8,12 +8,15 @@
 #
 #
 
+gem_package 'bundler' do
+  action :install
+end 
+
 application "rails-demo" do
   path "/var/www/rails-apps/rails-demo"
   owner "vagrant"
   group "vagrant"
   repository "http://github.com/mulderp/chef-demo.git"
-  gem_package "bundler"
   rails do 
     bundler true
   end
